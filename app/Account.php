@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class ManageAccount extends Authenticatable
+class Account extends Authenticatable
 {   
     use softDeletes;
 

@@ -23,8 +23,8 @@ class CreateMembersTable extends Migration
             $table->string('password', 100)->nullable()->default('')->comment('密碼');
             $table->string('phone', 50)->nullable()->default('')->comment('電話');
             $table->tinyInteger('sex')->default(0)->comment('性別 1=男 2=女');
-            $table->integer('city_id')->unsigned()->comment('縣市ID');
-            $table->integer('area_id')->unsigned()->comment('區域ID');
+            $table->bigInteger('city_id')->unsigned()->comment('縣市ID');
+            $table->bigInteger('area_id')->unsigned()->comment('區域ID');
             $table->string('address', 100)->nullable()->default('')->comment('地址');
             $table->tinyInteger('email_auth')->default(0)->comment('是否驗證 1=有驗證 2=無驗證');
             $table->integer('points')->default(0)->comment('紅利點數');
@@ -36,10 +36,6 @@ class CreateMembersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('members', function($table) {
-            $table->foreign('city_id')->references('id')->on('city_list');
-            $table->foreign('area_id')->references('id')->on('area_list');
-        });
     }
 
     /**

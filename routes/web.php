@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/singin', '');
 
-
-Route::get('/singup', function () {
-    return view('welcome');
+Route::get('/admin', function () {
+    return view('admin.signin');
 });
+
+Route::get('/admin/signin', function () {
+    return view('admin.signin');
+})->name('admin.login');
+
+
+Route::post('/admin/signin','Admin\LoginController@login');
