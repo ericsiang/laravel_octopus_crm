@@ -35,6 +35,9 @@
 
 	</head>
 	<body>
+		@if (session()->has('msg'))
+			<script>alert('{{ session()->get("msg") }}');</script>
+		@endif
 
 		<!-- start: page -->
 		<section class="body-sign">

@@ -26,6 +26,15 @@ class LoginController extends Controller
         return Auth::guard('admin');
     }
 
+    public function index()
+    {
+        if($this->guard()->check()){
+            return redirect('/admin');
+        }else{
+            return view('admin.signin');
+        }
+    }
+
     public function login(Request $request)
     {   
        
@@ -41,19 +50,26 @@ class LoginController extends Controller
             ]
         );
        
-
-        /*if($validate->passes()){
-            //return redirect('/admin/signin')->with(['success'=>'登入成功']);
-        }else{
-            return redirect('/admin/signin')
-                        ->with('msg','登入失敗，請確認帳號密碼是否正確')
-                        ->withInput();//原本填寫的值
-
-        }*/
+        $credentials = $request->only('account', 'password');    
+        $rememberme = $request->filled('rememberme'); 
+       
+        //驗證成功後，要進行的動作 
+        if ($this->guard()->attempt($credentials,$rememberme))//驗證成功後，要進行的動作
+        {  
+            return redirect('/admin'); 
+        }else{ //驗證失敗後，要進行的動作
+            return redirect(route('admin.login'))
+                        ->with('msg','登入失敗，請確認帳號密碼是否正確'); //回傳一次性session
+        }
          
     }
 
     public function logout(Request $request) {
+        $this->guard()->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+
+        //Auth::logout();
         return redirect(route('admin.login'));
     }
 

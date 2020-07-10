@@ -32,7 +32,7 @@ class Authenticate extends Middleware
 
         //check是否有登入
         foreach($guards as $guard){
-            if($this->auth->guard($guard->check())){
+            if($this->auth->guard($guard)->check()){
                 return $this->auth->shouldUse($guard);
             }
         }
@@ -42,6 +42,7 @@ class Authenticate extends Middleware
         if ($guard == 'admin') {
             //返回登入頁面
             $this->redirectTo = route('admin.login');
+            
         }
 
         throw new AuthenticationException(

@@ -15,13 +15,21 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/singin', '');
 
-Route::get('/admin', function () {
-    return view('admin.signin');
+
+
+
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('signin','Admin\LoginController@index')->name('login');
+    Route::post('signin','Admin\LoginController@login');
+    Route::get('logout','Admin\LoginController@logout')->name('logout');
+
+    Route::middleware(['auth:admin'])->group(function(){
+        Route::get('/','Admin\AdminController@index')->name('index');
+        Route::post('/display/{account}','Admin\AdminController@changeStatus');
+        Route::get('/edit/{account}','Admin\AdminController@edit')->name('edit');
+    });
+
+
+
 });
 
-Route::get('/admin/signin', function () {
-    return view('admin.signin');
-})->name('admin.login');
-
-
-Route::post('/admin/signin','Admin\LoginController@login');
