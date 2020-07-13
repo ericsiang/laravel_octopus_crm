@@ -26,10 +26,21 @@ class AdminController extends Controller
         //return redirect(route('admin.index'));
     }
 
+    public function show(){
+        $add=true;
+        return view('admin.accounts.adminAdd',compact('add')); 
+    }
+
     public function edit(Account $account){
         return view('admin.accounts.adminEdit',compact('account')); 
     }
 
-    
+    public function destory(Account $account){
+        //修改狀態為2刪除
+        $account->update(['status'=>2]);
+        $account->delete();
+
+        return route('admin.index');
+    }
 
 }

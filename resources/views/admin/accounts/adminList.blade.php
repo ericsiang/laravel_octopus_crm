@@ -19,6 +19,24 @@
                 }
             });
         }
+
+        function on_delete(acc_id){
+            $.ajax({
+                url:'/admin/'+acc_id+'',
+                type:'post',
+                async:false,
+                data:{'_token':'{{ csrf_token() }}','_method':'DELETE'},
+                success:function(data){
+                    if(data){
+                        alert('刪除成功');
+                        location.reload();
+                        return;
+                    }
+                },
+                error:function(e){
+                }
+            });
+        }
     </script>
 @endsection
 @section('content_header_title','管理員列表')
@@ -34,10 +52,11 @@
                 <header class="panel-heading">
                     <div class="panel-actions">
                         <a href="#" class="fa fa-caret-down"></a>
+                       
                         <!--<a href="#" class="fa fa-times"></a>-->
                     </div>
     
-                    <h2 class="panel-title"></h2>
+                    <h2 class="panel-title"> <a href='{{ route('admin.show') }}' class="mb-xs mt-xs mr-xs btn btn-success" >新增管理者</a></h2>
                 </header>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -63,7 +82,7 @@
                                             顯示
                                         @endif
                                         </a>
-                                        <a  class="mb-xs mt-xs mr-xs btn btn-danger">刪除</a></td>
+                                        <a  class="mb-xs mt-xs mr-xs btn btn-danger" onClick="on_delete('{{ $account->acc_id }}');">刪除</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

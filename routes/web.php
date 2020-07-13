@@ -27,6 +27,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/','Admin\AdminController@index')->name('index');
         Route::post('/display/{account}','Admin\AdminController@changeStatus');
         Route::get('/edit/{account}','Admin\AdminController@edit')->name('edit');
+        Route::get('/add','Admin\AdminController@show')->name('show');
+        Route::delete('/{account}','Admin\AdminController@destory');
     });
 
 

@@ -26,13 +26,18 @@
                     <input type="password" name="password" class="form-control" placeholder="" required/>
                 </div>
             </div>
-
+           
         </div>
         <footer class="panel-footer">
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-3">
                     <button class="btn btn-primary">Submit</button>
-                    <a href='{{route('admin.edit',$account->acc_id)}}' class="btn btn-default">Reset</a>
+                    <a href='
+                    @if (isset($add))
+                        {{ route('admin.show')}}
+                    @else
+                        {{ route('admin.edit',$account->acc_id)}}
+                    @endif' class="btn btn-default">Reset</a>
                 </div>
             </div>
         </footer>
