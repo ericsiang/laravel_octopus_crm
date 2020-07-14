@@ -25,10 +25,13 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::middleware(['auth:admin'])->group(function(){
         Route::get('/','Admin\AdminController@index')->name('index');
-        Route::post('/display/{account}','Admin\AdminController@changeStatus');
-        Route::get('/edit/{account}','Admin\AdminController@edit')->name('edit');
-        Route::get('/add','Admin\AdminController@show')->name('show');
-        Route::delete('/{account}','Admin\AdminController@destory');
+        Route::get('/create','Admin\AdminController@show')->name('show');
+        Route::post('/','Admin\AdminController@store')->name('store');
+        Route::get('/{account}/edit','Admin\AdminController@edit')->name('edit');
+        Route::put('/{account}','Admin\AdminController@update')->name('update');
+        Route::post('/display/{account}','Admin\AdminController@changeStatus')->name('display');
+        Route::delete('/{account}','Admin\AdminController@destory')->name('delete');
+        Route::resource('member', 'Admin\Member\MemberController');
     });
 
 

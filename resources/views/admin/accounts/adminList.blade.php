@@ -27,7 +27,8 @@
                 async:false,
                 data:{'_token':'{{ csrf_token() }}','_method':'DELETE'},
                 success:function(data){
-                    if(data){
+                    
+                    if(data=='success'){
                         alert('刪除成功');
                         location.reload();
                         return;
@@ -74,7 +75,7 @@
                                         <td>{{ $account->acc_id }}</td>
                                         <td>{{ $account->account }}</td>
                                         <td>
-                                        <a href="{{route('admin.edit',$account->acc_id)}}" class="mb-xs mt-xs mr-xs btn btn-danger">編輯</a>    
+                                        <a href="{{route('admin.edit',$account->acc_id)}}" class="mb-xs mt-xs mr-xs btn btn-info">編輯</a>    
                                         <a onClick="on_change({{ $account->acc_id }});" class="mb-xs mt-xs mr-xs btn btn-warning">
                                         @if($account->status==1)
                                             隱藏

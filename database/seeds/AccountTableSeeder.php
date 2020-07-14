@@ -15,6 +15,7 @@ class AccountTableSeeder extends Seeder
         Account::create(
             [ 
                 'account' => 'admin',
+                'name' => 'admin',
                 'password' => bcrypt('password'),
                 'status'=>1,
             ]

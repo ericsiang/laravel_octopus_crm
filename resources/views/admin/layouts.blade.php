@@ -247,8 +247,8 @@
 								<img src="{{asset('assets/images/!logged-user.jpg')}}" alt="Joseph Doe" class="img-circle" data-lock-picture="{{asset('assets/images/!logged-user.jpg')}}" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span class="name">John Doe Junior</span>
-								<span class="role">administrator</span>
+								<span class="name">{{ 'Hi! '.Auth::guard('admin')->user()->name }}</span>
+								<!--<span class="role">administrator</span>-->
 							</div>
 			
 							<i class="fa custom-caret"></i>
@@ -264,7 +264,7 @@
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
 								</li>-->
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+									<a role="menuitem" tabindex="-1" href="{{ route('admin.logout') }}"><i class="fa fa-power-off"></i> Logout</a>
 								</li>
 							</ul>
 						</div>
@@ -306,14 +306,21 @@
 										</a>
 									</li>
 									<li class="nav-parent">
-										<a>
+										<a href="{{ route('admin.index') }}">
 											<i class="fa fa-table" aria-hidden="true"></i>
 											<span>管理員列表</span>
 										</a>
+										
+									</li>
+									<li class="nav-parent">
+										<a>
+											<i class="fa  fa-users" aria-hidden="true"></i>
+											<span>會員管理</span>
+										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="pages-signup.html">
-													 Sign Up
+												<a href="{{ route('admin.member.index') }}">
+													會員列表
 												</a>
 											</li>
 											<li>
