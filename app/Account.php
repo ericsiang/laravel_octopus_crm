@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\AccountDeleted;
+use App\Events\AccountDeleting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,4 +19,11 @@ class Account extends Authenticatable
         'password', 'remember_token',
     ];
     protected $dates=['delete_at'];
+
+    
+    //建立模型事件與自定義事件class
+    protected $dispatchesEvents = [
+        'deleting' => AccountDeleting::class,
+        'deleted' => AccountDeleted::class
+    ];
 }
