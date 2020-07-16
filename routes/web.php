@@ -32,9 +32,10 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('/display/{account}','Admin\AdminController@changeStatus')->name('display');
         Route::delete('/{account}','Admin\AdminController@destory')->name('delete');
         Route::resource('member', 'Admin\Member\MemberController');
+        Route::post('/member/display/{member}','Admin\Member\MemberController@changeStatus')->name('member.display');
     });
 
-
+    
 
 });
 
