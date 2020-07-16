@@ -14,7 +14,7 @@ class Member extends Authenticatable
     protected $primaryKey='mem_id';
     protected $guarded=[];//黑名單，欄位不可賦值
     protected $hidden = [
-        'password', 'remember_token',
+        'password', //'remember_token',
     ];
-    protected $dates=['delete_at'];
+    //protected $dates=['delete_at'];
 }

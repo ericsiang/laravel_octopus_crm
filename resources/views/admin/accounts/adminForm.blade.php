@@ -29,7 +29,7 @@
         <div class="panel-body">
             <div class="form-group">
                 <label class="col-sm-3 control-label">Account <span class="required">*</span></label>
-                <div class="col-sm-9">
+                <div class="col-sm-6">
                     <input type="text" name="account" class="form-control" placeholder="" value="@if(isset($account)){{ old('account') ? old('account') : $account->account }}@endif"/>
                     @if($errors->has('account'))
                         <span style="color:#FF0000;">{{ $errors->first('account') }}</span>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Name <span class="required">*</span></label>
-                <div class="col-sm-9">
+                <div class="col-sm-6">
                     <input type="text" name="name" class="form-control" placeholder="" value="@if(isset($account)){{ old('name') ? old('name') : $account->name }}@endif"/>
                     @if($errors->has('name'))
                         <span style="color:#FF0000;">{{ $errors->first('name') }}</span>
@@ -47,7 +47,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Password <span class="required"> @if (isset($add))*@endif</span></label>
-                <div class="col-sm-9">
+                <div class="col-sm-6">
                     <input type="password" name="password" class="form-control" placeholder="@if (isset($account)){{ '修改密碼時才需填寫' }}@endif" />
                     @if($errors->has('password'))
                         <span style="color:#FF0000;">{{ $errors->first('password') }}</span>

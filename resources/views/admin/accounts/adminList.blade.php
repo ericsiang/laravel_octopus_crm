@@ -76,7 +76,7 @@
                                         <td>{{ $account->account }}</td>
                                         <td>
                                         <a href="{{route('admin.edit',$account->acc_id)}}" class="mb-xs mt-xs mr-xs btn btn-info">編輯</a>    
-                                        <a onClick="on_change({{ $account->acc_id }});" class="mb-xs mt-xs mr-xs btn btn-warning">
+                                        <a onClick="on_change({{ $account->acc_id }});" class="mb-xs mt-xs mr-xs btn btn-@if($account->status==1){{'warning'}}@else{{ 'success'}}@endif">
                                         @if($account->status==1)
                                             隱藏
                                         @else

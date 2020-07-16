@@ -51,6 +51,7 @@ class LoginController extends Controller
         );
        
         $credentials = $request->only('account', 'password');    
+        $credentials['status']=1;
         $rememberme = $request->filled('rememberme'); 
        
         //驗證成功後，要進行的動作 
