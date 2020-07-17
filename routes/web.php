@@ -24,6 +24,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('logout','Admin\LoginController@logout')->name('logout');
 
     Route::middleware(['auth:admin'])->group(function(){
+        //管理者
         Route::get('/','Admin\AdminController@index')->name('index');
         Route::get('/create','Admin\AdminController@show')->name('show');
         Route::post('/','Admin\AdminController@store')->name('store');
@@ -31,8 +32,13 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::put('/{account}','Admin\AdminController@update')->name('update');
         Route::post('/display/{account}','Admin\AdminController@changeStatus')->name('display');
         Route::delete('/{account}','Admin\AdminController@destory')->name('delete');
+        
+        //會員
         Route::resource('member', 'Admin\Member\MemberController');
         Route::post('/member/display/{member}','Admin\Member\MemberController@changeStatus')->name('member.display');
+
+        //頻道
+        Route::resource('channel', 'Admin\Channel\ChannelController');
     });
 
     

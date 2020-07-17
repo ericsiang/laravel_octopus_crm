@@ -37,14 +37,14 @@ class MemberController extends Controller
     }
 
 
-    public function destory(Account $account){
+    public function destroy(Member $member){
         //修改狀態為2刪除
         //$account->update(['status'=>2]);
 
        
-        $account->delete();
+        $member->delete();
 
-        $accounts=Account::WHERE('status','!=',2)->WHERE('acc_id','!=',1)->get();
+        //$member=Member::WHERE('status','!=',2)->WHERE('acc_id','!=',1)->get();
 
         return 'success';
 

@@ -36,6 +36,7 @@
 		<link rel="stylesheet" href="{{asset('assets/vendor/summernote/summernote-bs3.css') }}" />
 		<link rel="stylesheet" href="{{asset('assets/vendor/codemirror/lib/codemirror.css') }}" />
 		<link rel="stylesheet" href="{{asset('assets/vendor/codemirror/theme/monokai.css') }}" />
+		<link rel="stylesheet" href="{{asset('assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css') }}" />
 
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="{{asset('assets/stylesheets/theme.css') }}" />
@@ -330,7 +331,13 @@
 											</li>
 										</ul>
                                     </li>
-                                    
+                                    <li class="nav-parent">
+										<a href="{{ route('admin.channel.index') }}">
+											<i class="fa fa-table" aria-hidden="true"></i>
+											<span>頻道列表</span>
+										</a>
+										
+									</li>
                                     <!--
 									<li class="nav-parent">
 										<a>
@@ -563,7 +570,8 @@
         <script src="{{asset('assets/vendor/codemirror/mode/css/css.js') }}"></script>
         <script src="{{asset('assets/vendor/summernote/summernote.js') }}"></script>
         <script src="{{asset('assets/vendor/bootstrap-maxlength/bootstrap-maxlength.js') }}"></script>
-        <script src="{{asset('assets/vendor/ios7-switch/ios7-switch.js') }}"></script>
+		<script src="{{asset('assets/vendor/ios7-switch/ios7-switch.js') }}"></script>
+		<script src="{{asset('assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js') }}"></script>
         
         <!-- Theme Base, Components and Settings -->
         <script src="{{asset('assets/javascripts/theme.js') }}"></script>
@@ -577,6 +585,8 @@
 
         <!-- Examples -->
         <script src="{{asset('assets/javascripts/forms/examples.advanced.form.js') }}" /></script>
-
+		<script src="{{asset('assets/javascripts/ui-elements/examples.modals.js') }}"></script>
+		
+			
 	</body>
 </html>
