@@ -17,7 +17,7 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('mem_id');
             $table->string('card_num', 20)->nullable()->default('')->unique()->comment('卡號');
-            $table->string('cid', 10)->nullable()->default('')->comment('頻道ID');
+            $table->string('cid', 10)->nullable()->default('')->comment('頻道代碼');
             $table->string('name', 50)->nullable()->default('')->comment('姓名');
             $table->string('email', 100)->nullable()->default('')->unique()->comment('信箱');
             $table->string('password', 100)->nullable()->default('')->comment('密碼');
