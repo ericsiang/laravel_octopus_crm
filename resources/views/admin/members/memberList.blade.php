@@ -22,23 +22,25 @@
     }
 
     function on_delete(mem_id) {
-        $.ajax({
-            url: '/admin/member/' + mem_id + '',
-            type: 'post',
-            async: false,
-            data: {
-                '_token': '{{ csrf_token() }}',
-                '_method': 'DELETE'
-            },
-            success: function (data) {
-                if (data) {
-                    alert('刪除成功');
-                    location.reload();
-                    return;
-                }
-            },
-            error: function (e) {}
-        });
+        if(confirm('確認刪除此會員?')){
+            $.ajax({
+                url: '/admin/member/' + mem_id + '',
+                type: 'post',
+                async: false,
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    '_method': 'DELETE'
+                },
+                success: function (data) {
+                    if (data) {
+                        alert('刪除成功');
+                        location.reload();
+                        return;
+                    }
+                },
+                error: function (e) {}
+            });
+        }
     }
 
 </script>

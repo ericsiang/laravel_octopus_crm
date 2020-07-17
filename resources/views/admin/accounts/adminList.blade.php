@@ -21,22 +21,24 @@
         }
 
         function on_delete(acc_id){
-            $.ajax({
-                url:'/admin/'+acc_id+'',
-                type:'post',
-                async:false,
-                data:{'_token':'{{ csrf_token() }}','_method':'DELETE'},
-                success:function(data){
-                    
-                    if(data=='success'){
-                        alert('刪除成功');
-                        location.reload();
-                        return;
+            if(confirm('確認刪除此會員?')){
+                $.ajax({
+                    url:'/admin/'+acc_id+'',
+                    type:'post',
+                    async:false,
+                    data:{'_token':'{{ csrf_token() }}','_method':'DELETE'},
+                    success:function(data){
+                        
+                        if(data=='success'){
+                            alert('刪除成功');
+                            location.reload();
+                            return;
+                        }
+                    },
+                    error:function(e){
                     }
-                },
-                error:function(e){
-                }
-            });
+                });
+            }
         }
     </script>
 @endsection
