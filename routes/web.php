@@ -39,6 +39,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         //頻道
         Route::resource('channel', 'Admin\Channel\ChannelController');
+        Route::post('/channel/display/{channel}','Admin\Channel\ChannelController@changeStatus')->name('channel.display');
+
     });
 
     

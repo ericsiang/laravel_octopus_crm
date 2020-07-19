@@ -82,20 +82,12 @@
                             @foreach ($channels as $channel)
                             <tr>
                                 <td>{{ $channel->id }}</td>
-                                <td>{{ $channel->created_at }}</td>
                                 <td>{{ $channel->name }}</td>
                                 <td>{{ $channel->cid }}</td>
-                                <td>{{ $channel->card_num }}</td>
                                 <td>{!! $channel->status==1 ? '<div class="btn-success mb-xs mt-xs mr-xs btn"><i
                                             class="fa fa-check-circle"></i></div>' : '<div
                                         class="btn-danger mb-xs mt-xs mr-xs btn"><i class="fa fa-times-circle"></i>
                                     </div>' !!}</td>
-                                <td>{!! $channel->email_auth==1 ? '<div class="btn-success mb-xs mt-xs mr-xs btn"><i
-                                    class="fa fa-check-circle"></i></div>' : '<div
-                                class="btn-danger mb-xs mt-xs mr-xs btn"><i class="fa fa-times-circle"></i>
-                            </div>' !!}
-                                </td>
-                                <td>{{ $channel->points }}</td>
                                 <td>
                                     <a href="{{route('admin.channel.edit',$channel->id)}}"
                                         class="mb-xs mt-xs mr-xs btn btn-info">編輯</a>

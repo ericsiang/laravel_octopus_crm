@@ -376,9 +376,10 @@
                                     
 								</ul>
 							</nav>
-				
+							
+							<!--
 							<hr class="separator" />
-				
+
 							<div class="sidebar-widget widget-tasks">
 								<div class="widget-header">
 									<h6>Projects</h6>
@@ -392,9 +393,10 @@
 									</ul>
 								</div>
 							</div>
-				
+							-->
+
+							<!--
 							<hr class="separator" />
-				
 							<div class="sidebar-widget widget-stats">
 								<div class="widget-header">
 									<h6>Company Stats</h6>
@@ -432,6 +434,8 @@
 									</ul>
 								</div>
 							</div>
+
+							-->
 						</div>
 				
 					</div>
