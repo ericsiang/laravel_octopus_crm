@@ -36,6 +36,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         //會員
         Route::resource('member', 'Admin\Member\MemberController');
         Route::post('/member/display/{member}','Admin\Member\MemberController@changeStatus')->name('member.display');
+        Route::post('/member/{city}','Admin\Member\MemberController@changeCity');
 
         //頻道
         Route::resource('channel', 'Admin\Channel\ChannelController');

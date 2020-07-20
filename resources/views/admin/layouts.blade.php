@@ -299,6 +299,7 @@
 											<span>Dashboard</span>
 										</a>
 									</li>
+									<!--
 									<li>
 										<a href="mailbox-folder.html">
 											<span class="pull-right label label-primary">182</span>
@@ -306,6 +307,7 @@
 											<span>Mailbox</span>
 										</a>
 									</li>
+									-->
 									<li class="nav-parent">
 										<a href="{{ route('admin.index') }}">
 											<i class="fa fa-table" aria-hidden="true"></i>
@@ -322,11 +324,6 @@
 											<li>
 												<a href="{{ route('admin.member.index') }}">
 													會員列表
-												</a>
-											</li>
-											<li>
-												<a href="pages-signin.html">
-													 Sign In
 												</a>
 											</li>
 										</ul>
