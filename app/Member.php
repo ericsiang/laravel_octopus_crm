@@ -5,8 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
 
-class Member extends Authenticatable
+class Member extends Authenticatable implements JWTSubject
 {
     use softDeletes;
 
@@ -16,5 +18,18 @@ class Member extends Authenticatable
     protected $hidden = [
         'password', //'remember_token',
     ];
-    //protected $dates=['delete_at'];
+
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+
 }
