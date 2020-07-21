@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Http\Resources\MemberApiResource;
 
 class MemberApiController extends Controller
 {
@@ -31,13 +32,15 @@ class MemberApiController extends Controller
                 ],401);
         }
 
-    
+        //控制只輸出哪些欄位
+        $data=new MemberApiResource(JWTAuth::user());
+        
 
         return response()->json(
             [
                 'success'=>true,
                 'token' => $token,
-                'data'  =>  JWTAuth::user()
+                'data'  =>  $data,
             ]);
 
     }
