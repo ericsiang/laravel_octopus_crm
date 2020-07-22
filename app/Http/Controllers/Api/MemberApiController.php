@@ -6,11 +6,12 @@ use JWTAuth;
 use App\Member;
 use Validator;//新增自訂驗證時須加
 use Illuminate\Http\Request;
+use App\Events\MemberRegistered;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MemberApiResource;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Http\Resources\MemberApiResource;
 
 class MemberApiController extends Controller
 {
@@ -55,7 +56,10 @@ class MemberApiController extends Controller
         //dd($input);
         $input['card_num']=uniqid();
         $member=Member::create($input);
-      
+        
+        //訂閱者監聽事件
+        event(new MemberRegistered(Member::WHERE('mem_id',$member->mem_id)->get()[0]));
+
         //註冊後，是否執行登入
         if ($this->loginAfterSignUp) {
             return $this->login($request);

@@ -6,6 +6,7 @@ use App\Area;
 use App\City;
 use App\Member;
 use Illuminate\Http\Request;
+use App\Events\MemberRegistered;
 use App\Http\Controllers\Controller;
 
 class MemberController extends Controller
@@ -34,7 +35,17 @@ class MemberController extends Controller
         $this->validateion($request);
         $input=$request->except(['_token']);
 
-        Member::create($input);
+        do{
+            $card_num = mt_rand( 1000000000, 9999999999 );
+        } while ( Member::where( 'card_num', $card_num )->exists() );
+
+        $input['card_num']=$card_num;
+        $input['password']=bcrypt($input['password']);
+        
+        $member=Member::create($input);
+        
+        //訂閱者監聽事件
+        event(new MemberRegistered(Member::WHERE('mem_id',$member->mem_id)->get()[0]));
 
         $members=Member::WHERE('status','!=',2)->paginate(15);
         return view('admin.members.memberList',compact('members'));

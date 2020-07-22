@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function index(){
         $accounts=Account::WHERE('status','!=',2)->WHERE('acc_id','!=',1)->get();
-
+   
         return view('admin.accounts.adminList',compact('accounts'));
     }
 
