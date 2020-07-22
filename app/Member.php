@@ -2,11 +2,13 @@
 
 namespace App;
 
+use App\PointLog;
+use App\Events\MemberRegistered;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Member extends Authenticatable implements JWTSubject
 {
@@ -19,6 +21,10 @@ class Member extends Authenticatable implements JWTSubject
         'password','email_auth','fb_id','google_id' //'remember_token',
     ];
 
+    public function pointLogs()
+    {
+        return $this->hasMany(PointLog::class,'mem_id','mem_id');
+    }
 
     public function getJWTIdentifier()
     {
@@ -31,5 +37,6 @@ class Member extends Authenticatable implements JWTSubject
         return [];
     }
 
+   
 
 }

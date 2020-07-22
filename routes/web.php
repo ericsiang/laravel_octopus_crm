@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/singin', '');
 
-
-
-
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('signin','Admin\LoginController@index')->name('login');
     Route::post('signin','Admin\LoginController@login');
