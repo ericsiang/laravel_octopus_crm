@@ -26,7 +26,7 @@ class CreateMembersTable extends Migration
             $table->bigInteger('city_id')->unsigned()->comment('縣市ID');
             $table->bigInteger('area_id')->unsigned()->comment('區域ID');
             $table->string('address', 100)->nullable()->default('')->comment('地址');
-            $table->tinyInteger('email_auth')->default(0)->comment('是否驗證 1=有驗證 2=無驗證');
+            $table->tinyInteger('email_auth')->default(2)->comment('是否驗證 1=有驗證 2=無驗證');
             $table->integer('points')->default(0)->comment('紅利點數');
             $table->integer('level')->default(0)->comment('會員等級');
             $table->string('fb_id', 50)->nullable()->default('')->comment('facebook代號');
