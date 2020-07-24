@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Api;
 use JWTAuth;
 use App\Member;
 use Validator;//新增自訂驗證時須加
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\MemberRegistered;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\MemberApiResource;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class MemberApiController extends Controller
@@ -42,12 +45,26 @@ class MemberApiController extends Controller
                 'success'=>true,
                 'token' => $token,
                 'data'  =>  $data,
-            ]);
+            ], 200);
 
     }
 
+    public function logout(Request $request)
+    {
+        
+        JWTAuth::invalidate($request->token);
+        
+        return response()->json(
+            [
+                'success'=>true,
+                'message' => 'Already logged out',
+            ], 200);
+    }
+
+
     public function register(Request $request)
     {
+        
         
         $this->validateion($request->all());
 
@@ -55,19 +72,42 @@ class MemberApiController extends Controller
         $input['password']=bcrypt($input['password']);
         //dd($input);
         $input['card_num']=uniqid();
-        $member=Member::create($input);
+
+        $expire_time=time()+180;
+        $email_token=$input['email'].'&'.Str::random(5).'&'.$expire_time;
+        $input['email_token']=encrypt($email_token);
         
+
+        $member=Member::create($input);
+
+        $token = JWTAuth::fromUser($member);
+        //dd($token);
+        $url='http://'.$request->server('HTTP_HOST').'/api/member/verify_email?email_token='.$input['email_token'];
+        //Mail::to($input['email'])->send('test')->subject('Verify your email address');
+        
+        $mail_data=[
+            'subject'=>'Verify your email address',
+            'url'=>$url,
+        ];
+
+
+
+        Mail::send('admin.mail.verify_email', $mail_data , function($message) use ($input) {
+            $message->to($input['email'],$input['name'])
+                ->subject('Verify your email address');
+        });
+
         //訂閱者監聽事件
         event(new MemberRegistered(Member::WHERE('mem_id',$member->mem_id)->get()[0]));
 
         //註冊後，是否執行登入
-        if ($this->loginAfterSignUp) {
+        /*if ($this->loginAfterSignUp) {
             return $this->login($request);
-        }
+        }*/
 
         return response()->json([
             'success'   =>  true,
-            'data'      =>  $member
+            'data'      =>  $member,
         ], 200);
         
     }
@@ -89,6 +129,56 @@ class MemberApiController extends Controller
         ], 200);
 
     }
+
+    public function verifyEmail(Request $request)
+    {
+        $input=$request->only(['email_token']);
+        
+        //判斷decrypt是否成功
+        try {
+            $email_token=decrypt($input['email_token']);
+        } catch (DecryptException  $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 400/*JsonResponse::HTTP_UNPROCESSABLE_ENTITY*/ );
+
+        }
+       
+      
+        $email_token_arr=explode('&',$email_token);
+        $email=$email_token_arr[0];
+        $expire_time=$email_token_arr[2];
+        $now_time=time()-86399;
+
+       
+        if($now_time > $expire_time){
+            //email_token過期
+            return response()->json([
+                'success'   =>  false,
+                'message'      =>  'Email Token has expired'
+            ], 401);
+        }else{
+          
+            $member=Member::WHERE('email',$email)->WHERE('email_token',$input['email_token'])->get();
+            
+            if($member->count()){
+                $member[0]->update(['email_auth'=>1]);
+                
+                return response()->json([
+                    'success'   =>  true,
+                    'message'      =>  'Email verification succeeded'
+                ], 200);
+            }else{
+                return response()->json([
+                    'success'   =>  false,
+                    'message'      =>  'Member account can no find'
+                ], 401);
+            }
+        }
+
+    } 
 
     public function validateion($input,$type='')
     {   
@@ -137,7 +227,7 @@ class MemberApiController extends Controller
             throw new HttpResponseException(response()->json([
                 'success' => false,
                 'message' => $errors
-            ], 401/*JsonResponse::HTTP_UNPROCESSABLE_ENTITY*/ ));
+            ], 400/*JsonResponse::HTTP_UNPROCESSABLE_ENTITY*/ ));
         }
         
 
