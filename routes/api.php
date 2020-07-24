@@ -21,9 +21,20 @@ Route::middleware('auth:api')->get('/admin', function (Request $request) {
 
 Route::post('login','Api\MemberApiController@login');
 Route::post('register','Api\MemberApiController@register');
+ //驗證信箱
+ Route::get('member/verify_email', 'Api\MemberApiController@verifyEmail');
 
 Route::group(['middleware'=>'auth.jwt'],function(){
-    //新增、編輯會員資料
-    Route::put('member/{member}', 'Api\MemberApiController@update');
+    
+    Route::group(['middleware'=>'MemberEmailAuth'],function(){
+        //新增、編輯會員資料
+        Route::put('member/{member}', 'Api\MemberApiController@update');
+
+        Route::get('logout','Api\MemberApiController@logout');
+    });
+
+   
+
+    
 });
 
