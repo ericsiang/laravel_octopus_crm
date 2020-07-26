@@ -115,6 +115,16 @@ class MemberApiController extends Controller
 
     public function update(Request $request,Member $member)
     {      
+        $jwt_mem=JWTAuth::parseToken()->authenticate();
+        
+    
+        if($jwt_mem->mem_id != $member->mem_id){
+            return response()->json([
+                'success'   =>  false,
+                'message'      =>  'Token not match with member account',
+            ], 400);
+        }
+
         $input=$request->except(['email','token']); 
 
         $this->validateion($input,'update');
