@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use JWTAuth;
+use App\Member;
 
 
 class MemberEmailAuth
@@ -18,8 +19,8 @@ class MemberEmailAuth
     public function handle($request, Closure $next)
     {
    
-        
-        if(JWTAuth::parseToken()->authenticate()->email_auth!=1)
+      
+        if(JWTAuth::parseToken()->authenticate()->email_auth!=1 )
         {
             return response()->json([
                 'success'   =>  false,
@@ -27,6 +28,8 @@ class MemberEmailAuth
             ], 401);
         }
 
+       
+       
         return $next($request);
     }
 }
