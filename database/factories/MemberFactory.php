@@ -17,7 +17,7 @@ $factory->define(Member::class, function (Faker $faker) {
         'city_id'=>1,
         'area_id'=>mt_rand(1,10),
         'address'=>$faker->address,
-        'email_auth'=>mt_rand(1),
+        'email_auth'=>1,
         'status'=>1
     ];
 });
