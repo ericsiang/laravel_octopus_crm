@@ -18,7 +18,7 @@ class Member extends Authenticatable implements JWTSubject
     protected $primaryKey='mem_id';
     protected $guarded=[];//黑名單，欄位不可賦值
     protected $hidden = [
-        'password','email_auth','fb_id','google_id' //'remember_token',
+        'password','email_auth','fb_id','google_id','email_token','mem_id' //'remember_token',
     ];
 
     public function pointLogs()
