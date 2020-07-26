@@ -74,6 +74,7 @@
                                 <th>#</th>
                                 <th>註冊時間</th>
                                 <th>姓名</th>
+                                <th>Email</th>
                                 <!--<th>註冊來源</th>-->
                                 <th>頻道</th>
                                 <th>會員卡號</th>
@@ -89,6 +90,7 @@
                                 <td>{{ $member->mem_id }}</td>
                                 <td>{{ $member->created_at }}</td>
                                 <td>{{ $member->name }}</td>
+                                <td>{{ $member->email }}</td>
                                 <td>{{ $member->cid }}</td>
                                 <td>{{ $member->card_num }}</td>
                                 <td>{!! $member->status==1 ? '<div class="btn-success mb-xs mt-xs mr-xs btn"><i
