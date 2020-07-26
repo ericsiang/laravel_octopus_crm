@@ -15,7 +15,7 @@ class MemberController extends Controller
 
     public function index()
     {
-        $members=Member::WHERE('status','!=',2)->paginate(15);
+        $members=Member::WHERE('status','!=',2)->orderBy('mem_id','desc')->paginate(15);
 
         return view('admin.members.memberList',compact('members'));
     }
